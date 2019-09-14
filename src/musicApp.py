@@ -8,15 +8,14 @@ from src.config import DEBUG
 # Creating a Flask app
 app = Flask(__name__)
 
+
 @app.route('/')
 def sql_database():
     from src.musicService import sql_query
-
-
 
 
 # Get setup so that if we call the app directly (and it isn't being imported elsewhere)
 # it will then run the app with the debug mode as True
 # More info - https://docs.python.org/3/library/__main__.html
 if __name__ == '__main__':
-    weatherApp.run(debug=DEBUG, host='0.0.0.0')
+    app.run(debug=DEBUG, host='0.0.0.0')
