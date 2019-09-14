@@ -1,4 +1,3 @@
-import os
 import re
 import sqlite3
 import pandas as pd
@@ -50,8 +49,8 @@ finalNameList = []
 
 # Parsing different name formats and standardizing to create csv
 for name in nameArray:
+    tempNameList = list()
     if len(name.split(',')) == 2:
-        tempNameList = list()
         tempNameList = re.split(reg_ex, name)
         last_name = tempNameList.pop()
         first_name = tempNameList.pop()
