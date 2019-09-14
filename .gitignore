@@ -1,0 +1,7 @@
+*.log
+*.pyc
+#*.json*
+__pycache__
+.cache
+.idea
+venv
