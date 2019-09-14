@@ -1,6 +1,5 @@
-Using the web framework and language of your choice, and a SQLite database (a file), please create a web application.
-
-Using the three attached files (names.txt, instruments.csv, and name_instrument.csv), please write code that:
+Using Python Flask framework, and a SQLite database (a file), create a web application using the three attached
+files (names.txt, instruments.csv, and name_instrument.csv), please write code that:
 
 1. Parses and loads the Names into one table, and the Instruments into another table. Note, when commas exist in the
 names.txt file, they separate "last, first".  Otherwise, it's "first last".
