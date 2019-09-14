@@ -1,7 +1,7 @@
 # Imports
 from flask import Flask, request, abort
 from flask_restful import Resource, Api
-from musical.config import DEBUG
+from src.config import DEBUG
 
 # from musical.weather_service import WeatherService
 
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def sql_database():
-    from musical.musicService import sql_query
+    from src.musicService import sql_query
 
 
 

@@ -1,7 +1,7 @@
 #import os
 import unittest
 import json
-from musical import musicApp
+from src import musicApp
 # from musical.weather_app import weatherApp
 
 TEST_USER = {'test': 'BeTestall'}
