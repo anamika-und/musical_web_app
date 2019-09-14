@@ -1,0 +1,10 @@
+pandas
+pytemperature
+requests
+Flask==1.1.1
+Flask-HTTPAuth
+Flask-RESTful
+nose2
+flasgger
+pysqlite3
+peewee
