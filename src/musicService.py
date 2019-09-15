@@ -9,13 +9,13 @@ from processData import process_names
 """ connection variable for the SQLite database """
 conn = None
 
+""" SQLite database file """
 databaseFile = "../music.db"
 
+""" data files for SQLite database """
 instruments_file = '../instruments.csv'
 names_file = '../names.csv'
 inst_name_file = '../name_instrument.csv'
-
-df = pd.read_csv(instruments_file, header=0, sep=",")
 
 """ Clear music.db if it exists """
 if os.path.exists('databaseFile'):
@@ -34,7 +34,7 @@ def get_connection():
         print(e)
 
 
-def create_name_table():
+def create_name_table(cur):
     """ create names table into the SQLite database """
     try:
         process_names()
@@ -48,12 +48,12 @@ def create_name_table():
             to_db = [(i['first_name'], i['last_name']) for i in dr]
 
         sql = "INSERT INTO Names (first_name, last_name) VALUES (?, ?);"
-        insert(sql, to_db)
+        insert(cur, sql, to_db)
     except Error as e:
         print(e)
 
 
-def create_instrument_table():
+def create_instrument_table(cur):
     """ create instruments table into the SQLite database """
     try:
         cur.execute("CREATE TABLE Instruments ("
@@ -66,12 +66,12 @@ def create_instrument_table():
             to_db = [(i['Instrument'], i['Section']) for i in dr]
 
         sql = "INSERT INTO Instruments (Instrument, Section) VALUES (?, ?);"
-        insert(sql, to_db)
+        insert(cur, sql, to_db)
     except Error as e:
         print(e)
 
 
-def create_combined_table():
+def create_combined_table(cur):
     """ create combined table into the SQLite database """
     try:
         cur.execute("CREATE TABLE Combined ("
@@ -86,12 +86,12 @@ def create_combined_table():
             to_db = [(i['Instrument'], i['Name']) for i in dr]
 
         sql = "INSERT INTO Combined (Instrument, Name) VALUES (?, ?);"
-        insert(sql, to_db)
+        insert(cur, sql, to_db)
     except Error as e:
         print(e)
 
 
-def insert(sql, to_db):
+def insert(cur, sql, to_db):
     """ insert data into a table in the SQLite database """
     try:
         cur.executemany(sql, to_db)
@@ -103,8 +103,9 @@ def insert(sql, to_db):
 
 
 def sql_query():
-    cur = conn.cursor()
-    query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = b.Instrument;"
+    cur = get_connection().cursor()
+    query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
+            "b.Instrument; "
     cur.execute(query)
     rows = cur.fetchall()
     print(rows)
@@ -112,32 +113,36 @@ def sql_query():
 
 
 def sql_query2(query, var):
-    cur = conn.cursor()
+    cur = get_connection().cursor()
     cur.execute(query, var)
     rows = cur.fetchall()
     return rows
 
 
-# @app.before_request
-# def before_request():
-#     get_connection()
-#
-#
-# @app.after_request
-# def after_request(response):
-#     conn.close()
-#     return response
-
-
-if __name__ == '__main__':
-    # create_connection(r"../music.db")
-    conn = get_connection()
-    cur = conn.cursor()
-    create_name_table()
-    create_instrument_table()
-    create_combined_table()
+@app.before_request
+def before_request():
+    cur = get_connection().cursor()
+    create_name_table(cur)
+    create_instrument_table(cur)
+    create_combined_table(cur)
     conn.commit()  # commit needed
-    # PRAGMA table_info(names)
-    # select()
-    sql_query()
-    cur.close()
+
+
+@app.after_request
+def after_request(response):
+    conn.close()
+    # return response
+
+
+# if __name__ == '__main__':
+#     # create_connection(r"../music.db")
+#     conn = get_connection()
+#     cur = conn.cursor()
+#     create_name_table()
+#     create_instrument_table()
+#     create_combined_table()
+#     conn.commit()  # commit needed
+#     # PRAGMA table_info(names)
+#     # select()
+#     sql_query()
+#     cur.close()
