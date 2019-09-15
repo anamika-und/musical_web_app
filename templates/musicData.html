@@ -25,15 +25,46 @@
             <p><strong>Reports:</strong></p>
             <p>Here are the following SQLite reports available ...</p>
         </div>
-        {{msg}}
     </div>
+
+    <table class = 'table table-hover' style = 'margin-left: 100px; margin-right: 100px; width: 90%;'>
+        <thead>
+        <tr>
+            <th>Reports</th>
+            <th>API</th>
+            <th>Download</th>
+        </tr>
+        </thead>
+
+        <tr>
+            <td>Report showing the name, instrument, and section for all musicians</td>
+            <td>/api/v1/musicians/data</td>
+            <td align="center"><a href = "{{ url_for('music_app_get_musicians') }}"><i class="fas fa-download"></i></a></td>
+        </tr>
+        <tr>
+            <td>Report showing the instruments that don't yet have musicians (i.e. no one plays the trumpet), and their sections,
+                sorted by section, alphabetically in ascending order.</td>
+            <td>/api/v1/instruments/no-musicians/data</td>
+            <td align="center"><a href = "{{ url_for('music_app_get_instruments') }}"><i class="fas fa-download"></i></a></td>
+        </tr>
+        <tr>
+            <td>Report showing any musicians that play two or more instruments, their instrument, and section.</td>
+            <td>/api/v1/musicians/multiple-instruments/data</td>
+            <td align="center"><a href = "{{ url_for('music_app_get_multiple_instruments') }}"><i class="fas fa-download"></i></a></td>
+        </tr>
+        <tr>
+            <td>Report showing any instruments that are played by multiple musicians, as well as the musician names and sections.</td>
+            <td>/api/v1/instruments/multiple-musicians/data</td>
+            <td align="center"><a href = "{{ url_for('music_app_get_multiple_musicians') }}"><i class="fas fa-download"></i></a></td>
+        </tr>
+    </table>
 
 </div> <!-- ends row div -->
 
 <br><br>
 
 <div class="alert alert-success" role="alert" style='width: 90%; margin-left: 100px;'>
-    <strong>Check it out!</strong> Here is your combined data table below ...
+    <strong>Check it out!</strong> {{msg}}
 </div>
 
 <table class = 'table table-hover' style = 'margin-left: 100px; margin-right: 100px; width: 90%;'>

@@ -1,6 +1,7 @@
 # Imports
-from flask import Flask
+from flask import Flask, render_template
 
+from musicService import sql_query_get_musicians
 from src.config import DEBUG
 
 # from musical.weather_service import WeatherService
@@ -11,7 +12,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def music_app_homepage():
-    pass
+    results = sql_query_get_musicians()
+    msg = 'All musicians with their respective instruments and section:'
+    return render_template('musicData.html', results=results, msg=msg)
 
 
 @app.route('/api/v1/musicians/data', methods=['GET'])
