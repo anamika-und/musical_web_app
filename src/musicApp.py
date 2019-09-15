@@ -10,7 +10,27 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def sql_database():
+def musicApp():
+    from src.musicService import sql_query
+
+
+@app.route('/api/v1/musicians/data', methods=['GET'])
+def musicApp():
+    from src.musicService import sql_query
+
+
+@app.route('/api/v1/instruments/no-musicians/data', methods=['GET'])
+def musicApp():
+    from src.musicService import sql_query
+
+
+@app.route('/api/v1/musicians/multiple-instruments/data', methods=['GET'])
+def musicApp():
+    from src.musicService import sql_query
+
+
+@app.route('/api/v1/instruments/multiple-musicians/data', methods=['GET'])
+def musicApp():
     from src.musicService import sql_query
 
 

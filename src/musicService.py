@@ -37,7 +37,7 @@ def get_connection():
 def create_name_table():
     """ create names table into the SQLite database """
     try:
-        # process_names()
+        process_names()
         cur.execute("CREATE TABLE Names ("
                     "first_name TEXT NOT NULL PRIMARY KEY, "
                     "last_name);")  # use your column names here
@@ -107,17 +107,6 @@ def sql_query(query):
     cur.execute(query)
     rows = cur.fetchall()
     return rows
-
-
-def sql_edit_insert(query, var):
-    cur = conn.cursor()
-    cur.execute(query, var)
-    conn.commit()
-
-
-def sql_delete(query, var):
-    cur = conn.cursor()
-    cur.execute(query, var)
 
 
 def sql_query2(query, var):
