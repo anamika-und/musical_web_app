@@ -1,6 +1,6 @@
 # Imports
-from flask import Flask, request, abort
-from flask_restful import Resource, Api
+from flask import Flask
+
 from src.config import DEBUG
 
 # from musical.weather_service import WeatherService
@@ -10,28 +10,28 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def musicApp():
-    from src.musicService import sql_query
+def music_app_homepage():
+    pass
 
 
 @app.route('/api/v1/musicians/data', methods=['GET'])
-def musicApp():
-    from src.musicService import sql_query
+def music_app_get_musicians():
+    pass
 
 
 @app.route('/api/v1/instruments/no-musicians/data', methods=['GET'])
-def musicApp():
-    from src.musicService import sql_query
+def music_app_get_instruments():
+    pass
 
 
 @app.route('/api/v1/musicians/multiple-instruments/data', methods=['GET'])
-def musicApp():
-    from src.musicService import sql_query
+def music_app_get_multiple_instruments():
+    pass
 
 
 @app.route('/api/v1/instruments/multiple-musicians/data', methods=['GET'])
-def musicApp():
-    from src.musicService import sql_query
+def music_app_get_multiple_musicians():
+    pass
 
 
 # Get setup so that if we call the app directly (and it isn't being imported elsewhere)
