@@ -3,8 +3,8 @@ import os
 import sqlite3
 from sqlite3 import Error
 
-from musicApp import app
-from processData import process_names
+# from musicApp import app
+# from processData import process_names
 
 """ connection variable for the SQLite database """
 conn = None
@@ -102,7 +102,37 @@ def insert(cur, sql, to_db):
 """ Make a convenience function for running SQL queries """
 
 
-def sql_query():
+def sql_query_get_musicians():
+    cur = get_connection().cursor()
+    query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
+            "b.Instrument; "
+    cur.execute(query)
+    rows = cur.fetchall()
+    print(rows)
+    return rows
+
+
+def sql_query_get_instruments():
+    cur = get_connection().cursor()
+    query = "SELECT a.Instrument, a.Section FROM Instruments a LEFT JOIN Combined b ON a.Instrument = b.Instrument WHERE b.Instrument IS NULL; "
+    cur.execute(query)
+    rows = cur.fetchall()
+    rows.sort()
+    print(rows)
+    return rows
+
+
+def sql_query_get_musicians_multi_instruments():
+    cur = get_connection().cursor()
+    query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
+            "b.Instrument; "
+    cur.execute(query)
+    rows = cur.fetchall()
+    print(rows)
+    return rows
+
+
+def sql_query_get_instruments_multi_musicians():
     cur = get_connection().cursor()
     query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
             "b.Instrument; "
@@ -119,30 +149,24 @@ def sql_query2(query, var):
     return rows
 
 
-@app.before_request
-def before_request():
-    cur = get_connection().cursor()
-    create_name_table(cur)
-    create_instrument_table(cur)
-    create_combined_table(cur)
-    conn.commit()  # commit needed
-
-
-@app.after_request
-def after_request():
-    conn.close()
-    # return response
-
-
-# if __name__ == '__main__':
-#     # create_connection(r"../music.db")
-#     conn = get_connection()
-#     cur = conn.cursor()
-#     create_name_table()
-#     create_instrument_table()
-#     create_combined_table()
+# @app.before_request
+# def before_request():
+#     cur = get_connection().cursor()
+#     create_name_table(cur)
+#     create_instrument_table(cur)
+#     create_combined_table(cur)
 #     conn.commit()  # commit needed
-#     # PRAGMA table_info(names)
-#     # select()
-#     sql_query()
-#     cur.close()
+#
+#
+# @app.after_request
+# def after_request():
+#     conn.close()
+#     # return response
+
+
+if __name__ == '__main__':
+    # create_connection(r"../music.db")
+    conn = get_connection()
+    cur = conn.cursor()
+    sql_query_get_instruments()
+    cur.close()
