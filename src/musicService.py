@@ -1,9 +1,9 @@
+import csv
+import os
 import sqlite3
 from sqlite3 import Error
-import os
-import csv
-import pandas as pd
 
+from musicApp import app
 from processData import process_names
 
 """ connection variable for the SQLite database """
@@ -129,7 +129,7 @@ def before_request():
 
 
 @app.after_request
-def after_request(response):
+def after_request():
     conn.close()
     # return response
 
