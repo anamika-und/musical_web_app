@@ -5,8 +5,8 @@ import pandas as pd
 databaseFile = "../music.db"
 
 instruments_file = '../instruments.csv'
-names_file = '../names.txt'
-output_names_file = '../output.csv'
+input_names_file = '../names.txt'
+output_names_file = '../names.csv'
 inst_name_file = '../name_instrument.csv'
 reg_ex = '; |, |\\*|\n'
 name_header = ['first_name', 'last_name']
@@ -16,7 +16,7 @@ def process_names():
     """
     Opening, reading name file and building name array.
     """
-    with open(names_file, 'r') as data:
+    with open(input_names_file, 'r') as data:
         plaintext = data.read()
     name_array = plaintext.split('\n')
 
@@ -46,5 +46,4 @@ def process_names():
         for name in final_name_list:
             txt_file.write(name + "\n")  # works with any number of elements in a line
 
-    names_df = pd.read_csv(output_names_file, header=None, sep=',', engine='python')
-    names_df.columns = name_header
+    names_df = pd.read_csv(output_names_file, names=name_header, sep=',', engine='python')
