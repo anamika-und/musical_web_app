@@ -102,10 +102,12 @@ def insert(sql, to_db):
 """ Make a convenience function for running SQL queries """
 
 
-def sql_query(query):
+def sql_query():
     cur = conn.cursor()
+    query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = b.Instrument;"
     cur.execute(query)
     rows = cur.fetchall()
+    print(rows)
     return rows
 
 
@@ -137,4 +139,5 @@ if __name__ == '__main__':
     conn.commit()  # commit needed
     # PRAGMA table_info(names)
     # select()
+    sql_query()
     cur.close()
