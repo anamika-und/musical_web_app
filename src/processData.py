@@ -1,12 +1,10 @@
 import re
 import pandas as pd
 
-databaseFile = "../music.db"
-
-instruments_file = '../instruments.csv'
-input_names_file = '../names.txt'
-output_names_file = '../names.csv'
-inst_name_file = '../name_instrument.csv'
+instruments_file = './instruments.csv'
+input_names_file = './names.txt'
+output_names_file = './names.csv'
+inst_name_file = './name_instrument.csv'
 reg_ex = '; |, |\\*|\n'
 name_header = ["first_name", "last_name"]
 

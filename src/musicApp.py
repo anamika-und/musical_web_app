@@ -2,8 +2,8 @@
 from flask import Flask, render_template, send_file
 
 import csv
-import src.musicService as musicService
-from src.config import DEBUG
+import musicService
+from config import DEBUG
 
 # Creating a Flask app
 app = Flask(__name__)

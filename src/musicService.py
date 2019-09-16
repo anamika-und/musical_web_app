@@ -2,19 +2,19 @@ import csv
 import os
 import sqlite3
 from sqlite3 import Error
+import processData as processData
 
 from musicApp import app
-from processData import process_names
 
 """ SQLite database file """
-databaseFile = "../music.db"
+databaseFile = "./music.db"
 
 conn = None
 
 """ data files for SQLite database """
-instruments_file = '../instruments.csv'
-names_file = '../names.csv'
-inst_name_file = '../name_instrument.csv'
+instruments_file = './instruments.csv'
+names_file = './names.csv'
+inst_name_file = './name_instrument.csv'
 
 """ Clear music.db if it exists """
 if os.path.exists('databaseFile'):
@@ -38,7 +38,7 @@ def create_name_table(cur):
     """ create names table into the SQLite database """
     try:
         print('Processing names.txt ...')
-        process_names()
+        processData.process_names()
         print('Creating table Names ...')
         cur.execute("CREATE TABLE Names ("
                     "first_name TEXT NOT NULL PRIMARY KEY, "
