@@ -26,14 +26,14 @@ names and sections.
 API Endpoints
 -------------
 
-====== ================                             =================================================================
+====== ============================================ =================================================================
 Method Endpoint                                     Description
-====== ================                             =================================================================
+====== ============================================ =======================================================================================
 GET    /api/v1/musicians/data                       Returns the Name, Instruments and Section for all musicians
 GET    /api/v1/instruments/no-musicians/data        Returns Instruments and Section that don't have any musicians
 GET    /api/v1/musicians/multiple-instruments/data  Returns Names, Instruments and Section of musicians who play more than one instruments
 GET    /api/v1/instruments/multiple-musicians/data  Returns Instruments, Name and Section for instruments played by multiple musicians
-====== ================                             =================================================================
+====== ============================================ =======================================================================================
 
 Running the Musical App
 -----------------------
