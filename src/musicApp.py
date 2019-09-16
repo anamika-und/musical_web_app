@@ -29,28 +29,32 @@ def music_app_homepage():
 def music_app_get_musicians():
     results = musicService.sql_query_get_musicians()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file)
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+                     cache_timeout=0, as_attachment=True)
 
 
 @app.route('/api/v1/instruments/no-musicians/data', methods=['GET'])
 def music_app_get_instruments():
     results = musicService.sql_query_get_instruments()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file)
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+                     cache_timeout=0, as_attachment=True)
 
 
 @app.route('/api/v1/musicians/multiple-instruments/data', methods=['GET'])
 def music_app_get_multiple_instruments():
     results = musicService.sql_query_get_musicians_multi_instruments()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file)
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+                     cache_timeout=0, as_attachment=True)
 
 
 @app.route('/api/v1/instruments/multiple-musicians/data', methods=['GET'])
 def music_app_get_multiple_musicians():
     results = musicService.sql_query_get_instruments_multi_musicians()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file)
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+                     cache_timeout=0, as_attachment=True)
 
 
 # Get setup so that if we call the app directly (and it isn't being imported elsewhere)
