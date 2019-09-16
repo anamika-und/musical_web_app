@@ -5,7 +5,7 @@ import pandas as pd
 instruments_file = os.path.abspath("../instruments.csv")
 input_names_file = os.path.abspath("../names.txt")
 output_names_file = os.path.abspath("../names.csv")
-inst_name_file = os.path.abspath("/name_instrument.csv")
+inst_name_file = os.path.abspath("../name_instrument.csv")
 reg_ex = '; |, |\\*|\n'
 name_header = ["first_name", "last_name"]
 
