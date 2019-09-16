@@ -104,6 +104,7 @@ def sql_query_get_musicians():
             "b.Instrument; "
     cur.execute(query)
     rows = cur.fetchall()
+    rows.sort()
     print(rows)
     return rows
 
@@ -111,8 +112,8 @@ def sql_query_get_musicians():
 def sql_query_get_instruments():
     """ QUERY: 2"""
     cur = get_connection().cursor()
-    query = "SELECT a.Instrument, a.Section FROM Instruments a LEFT JOIN Combined b ON a.Instrument = b.Instrument " \
-            "WHERE b.Instrument IS NULL GROUP BY Name; "
+    query = "SELECT a.Section, a.Instrument FROM Instruments a LEFT JOIN Combined b ON a.Instrument = b.Instrument " \
+            "WHERE b.Instrument IS NULL; "
     cur.execute(query)
     rows = cur.fetchall()
     rows.sort()
