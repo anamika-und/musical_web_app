@@ -102,6 +102,7 @@ def insert(cur, sql, to_db):
 """ Make a convenience function for running SQL queries """
 
 
+""" QUERY: 1"""
 def sql_query_get_musicians():
     cur = get_connection().cursor()
     query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
@@ -112,9 +113,21 @@ def sql_query_get_musicians():
     return rows
 
 
+""" QUERY: 2"""
 def sql_query_get_instruments():
     cur = get_connection().cursor()
-    query = "SELECT a.Instrument, a.Section FROM Instruments a LEFT JOIN Combined b ON a.Instrument = b.Instrument WHERE b.Instrument IS NULL; "
+    query = "SELECT a.Instrument, a.Section FROM Instruments a LEFT JOIN Combined b ON a.Instrument = b.Instrument" \
+            "WHERE b.Instrument IS NULL GROUP BY Name; "
+    cur.execute(query)
+    rows = cur.fetchall()
+    # rows.sort()
+    print(rows)
+    return rows
+
+""" QUERY: 3"""
+def sql_query_get_musicians_multi_instruments():
+    cur = get_connection().cursor()
+    query = "Select a.Name, a.Instrument, c.Section from Combined a inner join Combined b on a.Name = b.Name and a.Instrument != b.Instrument left join Instruments c on b.Instrument = c.instrument;"
     cur.execute(query)
     rows = cur.fetchall()
     rows.sort()
@@ -122,30 +135,14 @@ def sql_query_get_instruments():
     return rows
 
 
-def sql_query_get_musicians_multi_instruments():
-    cur = get_connection().cursor()
-    query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
-            "b.Instrument; "
-    cur.execute(query)
-    rows = cur.fetchall()
-    print(rows)
-    return rows
-
-
+""" QUERY: 4"""
 def sql_query_get_instruments_multi_musicians():
     cur = get_connection().cursor()
-    query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
-            "b.Instrument; "
+    query = "Select DISTINCT a.Instrument, a.Name, c.Section from Combined a INNER JOIN Combined b on a.Instrument = b.Instrument and a.Name != b.Name JOIN Instruments c on b.Instrument = c.instrument;"
     cur.execute(query)
     rows = cur.fetchall()
+    rows.sort()
     print(rows)
-    return rows
-
-
-def sql_query2(query, var):
-    cur = get_connection().cursor()
-    cur.execute(query, var)
-    rows = cur.fetchall()
     return rows
 
 
@@ -168,5 +165,5 @@ if __name__ == '__main__':
     # create_connection(r"../music.db")
     conn = get_connection()
     cur = conn.cursor()
-    sql_query_get_instruments()
+    sql_query_get_instruments_multi_musicians()
     cur.close()
