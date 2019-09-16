@@ -42,7 +42,7 @@ Running the Musical App
 
 To run the app, run the following command at the project root:
 
-:code:`python musicApp.py`
+:code:`python src/musicApp.py`
 
 The app will run on
 
