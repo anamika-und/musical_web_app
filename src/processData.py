@@ -8,7 +8,7 @@ input_names_file = '../names.txt'
 output_names_file = '../names.csv'
 inst_name_file = '../name_instrument.csv'
 reg_ex = '; |, |\\*|\n'
-name_header = ['first_name', 'last_name']
+name_header = ["first_name", "last_name"]
 
 
 def process_names():
@@ -42,6 +42,7 @@ def process_names():
 
     # Writing final name list to a file
     with open(output_names_file, "w") as txt_file:
+        txt_file.write("first_name,last_name" + "\n")
         for name in final_name_list:
             txt_file.write(name + "\n")  # works with any number of elements in a line
 

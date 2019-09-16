@@ -61,4 +61,5 @@ def music_app_get_multiple_musicians():
 # it will then run the app with the debug mode as True
 # More info - https://docs.python.org/3/library/__main__.html
 if __name__ == '__main__':
+    musicService.create_update_database()
     app.run(debug=DEBUG, host='127.0.0.1')
