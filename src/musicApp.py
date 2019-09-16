@@ -3,7 +3,7 @@ from flask import Flask, render_template, send_file
 
 import csv
 import musicService
-from src.config import DEBUG
+from config import DEBUG
 
 # Creating a Flask app
 app = Flask(__name__)
