@@ -1,13 +1,14 @@
 # Imports
 from flask import Flask, render_template, send_file
 
+import os
 import csv
 import musicService
 from config import DEBUG
 
 # Creating a Flask app
 app = Flask(__name__)
-output_musicians_file = 'musicians.csv'
+output_musicians_file = os.path.abspath("musicians.csv")
 
 
 def create_csv_file(results):
@@ -22,7 +23,7 @@ def create_csv_file(results):
 def music_app_homepage():
     results = musicService.sql_query_get_musicians()
     msg = 'All musicians with their respective instruments and section:'
-    return render_template('musicData.html', results=results, msg=msg)
+    return render_template(os.path.abspath("musicData.html"), results=results, msg=msg)
 
 
 @app.route('/api/v1/musicians/data', methods=['GET'])

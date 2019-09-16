@@ -7,14 +7,14 @@ import processData as processData
 from musicApp import app
 
 """ SQLite database file """
-databaseFile = "./music.db"
+databaseFile = os.path.abspath("../music.db")
 
 conn = None
 
 """ data files for SQLite database """
-instruments_file = './instruments.csv'
-names_file = './names.csv'
-inst_name_file = './name_instrument.csv'
+instruments_file = os.path.abspath("../instruments.csv")
+names_file = os.path.abspath("../names.csv")
+inst_name_file = os.path.abspath("../name_instrument.csv")
 
 """ Clear music.db if it exists """
 if os.path.exists('databaseFile'):
