@@ -3,11 +3,8 @@ import os
 import sqlite3
 from sqlite3 import Error
 
-# from musicApp import app
-# from processData import process_names
-
-""" connection variable for the SQLite database """
-conn = None
+from musicApp import app
+from processData import process_names
 
 """ SQLite database file """
 databaseFile = "../music.db"
@@ -25,10 +22,8 @@ if os.path.exists('databaseFile'):
 def get_connection():
     """ create a database connection to the SQLite database """
     try:
-        global conn
-        if conn is None:
-            conn = sqlite3.connect(databaseFile)
-            print(sqlite3.version)
+        conn = sqlite3.connect(databaseFile)
+        print(sqlite3.version)
         return conn
     except Error as e:
         print(e)
@@ -102,8 +97,8 @@ def insert(cur, sql, to_db):
 """ Make a convenience function for running SQL queries """
 
 
-""" QUERY: 1"""
 def sql_query_get_musicians():
+    """ QUERY: 1"""
     cur = get_connection().cursor()
     query = "SELECT a.Name, a.Instrument, b.Section from Combined as a join Instruments as b where a.Instrument = " \
             "b.Instrument; "
@@ -113,21 +108,23 @@ def sql_query_get_musicians():
     return rows
 
 
-""" QUERY: 2"""
 def sql_query_get_instruments():
+    """ QUERY: 2"""
     cur = get_connection().cursor()
-    query = "SELECT a.Instrument, a.Section FROM Instruments a LEFT JOIN Combined b ON a.Instrument = b.Instrument" \
+    query = "SELECT a.Instrument, a.Section FROM Instruments a LEFT JOIN Combined b ON a.Instrument = b.Instrument " \
             "WHERE b.Instrument IS NULL GROUP BY Name; "
     cur.execute(query)
     rows = cur.fetchall()
-    # rows.sort()
+    rows.sort()
     print(rows)
     return rows
 
-""" QUERY: 3"""
+
 def sql_query_get_musicians_multi_instruments():
+    """ QUERY: 3"""
     cur = get_connection().cursor()
-    query = "Select a.Name, a.Instrument, c.Section from Combined a inner join Combined b on a.Name = b.Name and a.Instrument != b.Instrument left join Instruments c on b.Instrument = c.instrument;"
+    query = "Select a.Name, a.Instrument, c.Section from Combined a inner join Combined b on a.Name = b.Name and " \
+            "a.Instrument != b.Instrument left join Instruments c on b.Instrument = c.instrument; "
     cur.execute(query)
     rows = cur.fetchall()
     rows.sort()
@@ -135,10 +132,11 @@ def sql_query_get_musicians_multi_instruments():
     return rows
 
 
-""" QUERY: 4"""
 def sql_query_get_instruments_multi_musicians():
+    """ QUERY: 4"""
     cur = get_connection().cursor()
-    query = "Select DISTINCT a.Instrument, a.Name, c.Section from Combined a INNER JOIN Combined b on a.Instrument = b.Instrument and a.Name != b.Name JOIN Instruments c on b.Instrument = c.instrument;"
+    query = "Select DISTINCT a.Instrument, a.Name, c.Section from Combined a INNER JOIN Combined b on a.Instrument = " \
+            "b.Instrument and a.Name != b.Name JOIN Instruments c on b.Instrument = c.instrument; "
     cur.execute(query)
     rows = cur.fetchall()
     rows.sort()
@@ -146,24 +144,15 @@ def sql_query_get_instruments_multi_musicians():
     return rows
 
 
-# @app.before_request
-# def before_request():
-#     cur = get_connection().cursor()
-#     create_name_table(cur)
-#     create_instrument_table(cur)
-#     create_combined_table(cur)
-#     conn.commit()  # commit needed
-#
-#
-# @app.after_request
-# def after_request():
-#     conn.close()
-#     # return response
+@app.before_request
+def before_request():
+    cur = get_connection().cursor()
+    create_name_table(cur)
+    create_instrument_table(cur)
+    create_combined_table(cur)
+    get_connection().commit()  # commit needed
 
 
-if __name__ == '__main__':
-    # create_connection(r"../music.db")
-    conn = get_connection()
-    cur = conn.cursor()
-    sql_query_get_instruments_multi_musicians()
-    cur.close()
+@app.after_request
+def after_request():
+    get_connection().close()
