@@ -8,7 +8,8 @@ from config import DEBUG
 
 # Creating a Flask app
 app = Flask(__name__)
-output_musicians_file = os.path.abspath("musicians.csv")
+output_data_file = "report.csv"
+output_musicians_file = os.path.abspath(output_data_file)
 
 
 def create_csv_file(results):
@@ -30,7 +31,7 @@ def music_app_homepage():
 def music_app_get_musicians():
     results = musicService.sql_query_get_musicians()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_data_file,
                      cache_timeout=0, as_attachment=True)
 
 
@@ -38,7 +39,7 @@ def music_app_get_musicians():
 def music_app_get_instruments():
     results = musicService.sql_query_get_instruments()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_data_file,
                      cache_timeout=0, as_attachment=True)
 
 
@@ -46,7 +47,7 @@ def music_app_get_instruments():
 def music_app_get_multiple_instruments():
     results = musicService.sql_query_get_musicians_multi_instruments()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_data_file,
                      cache_timeout=0, as_attachment=True)
 
 
@@ -54,7 +55,7 @@ def music_app_get_multiple_instruments():
 def music_app_get_multiple_musicians():
     results = musicService.sql_query_get_instruments_multi_musicians()
     create_csv_file(results)
-    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_musicians_file,
+    return send_file(output_musicians_file, mimetype='text/csv', attachment_filename=output_data_file,
                      cache_timeout=0, as_attachment=True)
 
 
