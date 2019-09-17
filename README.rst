@@ -47,3 +47,7 @@ To run the app, run the following command at the project root:
 The app will run on
 
 :code:`http://127.0.0.1:5000/`
+
+.. image:: Music_web_app_homepage.png
+   :scale: 100 %
+   :align: center
