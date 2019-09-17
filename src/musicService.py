@@ -2,19 +2,19 @@ import csv
 import os
 import sqlite3
 from sqlite3 import Error
-import processData as processData
+import src.processData as processData
 
 from musicApp import app
 
 """ SQLite database file """
-databaseFile = os.path.abspath("../music.db")
+databaseFile = os.path.abspath("music.db")
 
 conn = None
 
 """ data files for SQLite database """
-instruments_file = os.path.abspath("../instruments.csv")
-names_file = os.path.abspath("../names.csv")
-inst_name_file = os.path.abspath("../name_instrument.csv")
+instruments_file = os.path.abspath("instruments.csv")
+names_file = os.path.abspath("names.csv")
+inst_name_file = os.path.abspath("name_instrument.csv")
 
 """ Clear music.db if it exists """
 if os.path.exists('databaseFile'):
